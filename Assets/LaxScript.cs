@@ -26,7 +26,7 @@ public class LaxScript : MonoBehaviour
             {
                 print(start_pos.Length);
                 layers[i].transform.position = start_pos[i];
-;            }
+            }
         }
     }
 }
