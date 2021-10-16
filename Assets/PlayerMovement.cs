@@ -7,11 +7,12 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D rb;
     public float speed;
     public LayerMask groundLayer;
+    private GameObject obstacle;
 
     // Start is called before the first frame update
     void Start()
     {
-
+      
     }
 
     // Update is called once per frame
@@ -36,6 +37,26 @@ public class PlayerMovement : MonoBehaviour
             {
                 rb.velocity = Vector2.zero;
             }
+
+            if (Input.GetKeyUp(KeyCode.A))
+            {
+                rb.velocity = Vector2.zero;
+            }
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D obstacle)
+    {
+       Debug.Log("hit detected");
+
+        if (obstacle.collider.tag == "obstacle")
+        {
+        Debug.Log("obstacle detected");
+
+            /* float inputX = Input.GetAxis("Horizontal");
+
+            rb.transform.position = new Vector2(rb.position.x - 200, rb.position.y);
+            */
         }
     }
 }
