@@ -10,10 +10,13 @@ public class PlayerMovement : MonoBehaviour
     private GameObject obstacle;
     public float jumpForce;
     public float pushForceUp;
-    public float pushVelocity;
+    public float pushForceSide;
     private bool grounded;
+    private bool grind_grounded;
     public Animator animator;
     private bool pushing = false;
+    private bool grinding = false;
+    private bool running = true;
 
     // Start is called before the first frame update
     void Start()
@@ -25,32 +28,15 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         float inputX = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(inputX * speed, rb.velocity.y);
-
-        if (Input.GetKeyDown(KeyCode.D) && !pushing)
-        {
-            rb.velocity = new Vector2(speed, rb.velocity.y);
+        if (!pushing){
+            rb.velocity = new Vector2(inputX * speed, rb.velocity.y);
         }
 
-        if (Input.GetKeyDown(KeyCode.A) && !pushing)
-        {
-            rb.velocity = new Vector2(-speed, rb.velocity.y);
-        }
-
-        if (Input.GetKeyUp(KeyCode.D) && !pushing)
-        {
-            rb.velocity = new Vector2(0, rb.velocity.y);
-        }
-
-        if (Input.GetKeyUp(KeyCode.A) && !pushing)
-        {
-            rb.velocity = new Vector2(0, rb.velocity.y);
-        }
-
-        if (grounded)
+        if ((grounded || grind_grounded) && !pushing)
         {
             if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W))
             {
+                rb.velocity = new Vector2(rb.velocity.x, 0);
                 rb.AddForce(Vector2.up * jumpForce);
                 grounded = false;
                 animator.SetBool("Jump", true);
@@ -64,6 +50,20 @@ public class PlayerMovement : MonoBehaviour
         {
             grounded = true;
             animator.SetBool("Jump", false);
+        }
+        if(obstacle.gameObject.layer == 6)
+        {
+            grind_grounded = true;
+            animator.SetBool("Grinding", true);
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if(collision.gameObject.layer == 6)
+        {
+            grind_grounded = false;
+            animator.SetBool("Grinding", false);
         }
     }
 
@@ -79,17 +79,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void PushPlayerBack()
     {
-        print("PushBack");
         pushing = true;
-        rb.velocity = Vector2.left * pushVelocity;
+        animator.SetBool("Pushing", true);
+        rb.velocity = Vector2.zero;
+        rb.AddForce(Vector2.left * pushForceSide);
         rb.AddForce(Vector2.up * pushForceUp);
         StartCoroutine(PushDuration());
     }
     
     IEnumerator PushDuration()
     {
-        yield return new WaitForSeconds(5f);
-        rb.velocity = Vector2.zero;
+        yield return new WaitForSeconds(0.6f);
         pushing = false;
+        animator.SetBool("Pushing", false);
     }
 }
