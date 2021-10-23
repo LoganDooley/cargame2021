@@ -8,6 +8,12 @@ public class PlayerMovement : MonoBehaviour
     public float speed;
     public LayerMask groundLayer;
     private GameObject obstacle;
+    public float jumpForce;
+    public float pushForceUp;
+    public float pushVelocity;
+    private bool grounded;
+    public Animator animator;
+    private bool pushing = false;
 
     // Start is called before the first frame update
     void Start()
@@ -21,42 +27,69 @@ public class PlayerMovement : MonoBehaviour
         float inputX = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(inputX * speed, rb.velocity.y);
 
-        if (Physics2D.Raycast(transform.position, Vector2.down, 0.6f, groundLayer))
+        if (Input.GetKeyDown(KeyCode.D) && !pushing)
         {
-            if (Input.GetKeyDown(KeyCode.D))
-            {
-                rb.velocity = Vector2.right * speed;
-            }
+            rb.velocity = new Vector2(speed, rb.velocity.y);
+        }
 
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                rb.velocity = Vector2.left * speed;
-            }
+        if (Input.GetKeyDown(KeyCode.A) && !pushing)
+        {
+            rb.velocity = new Vector2(-speed, rb.velocity.y);
+        }
 
-            if (Input.GetKeyUp(KeyCode.D))
-            {
-                rb.velocity = Vector2.zero;
-            }
+        if (Input.GetKeyUp(KeyCode.D) && !pushing)
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+        }
 
-            if (Input.GetKeyUp(KeyCode.A))
+        if (Input.GetKeyUp(KeyCode.A) && !pushing)
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+        }
+
+        if (grounded)
+        {
+            if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W))
             {
-                rb.velocity = Vector2.zero;
+                rb.AddForce(Vector2.up * jumpForce);
+                grounded = false;
+                animator.SetBool("Jump", true);
             }
         }
     }
 
     private void OnCollisionEnter2D(Collision2D obstacle)
     {
-       Debug.Log("hit detected");
-
-        if (obstacle.collider.tag == "obstacle")
+        if(obstacle.gameObject.layer == 3)
         {
-        Debug.Log("obstacle detected");
-
-            /* float inputX = Input.GetAxis("Horizontal");
-
-            rb.transform.position = new Vector2(rb.position.x - 200, rb.position.y);
-            */
+            grounded = true;
+            animator.SetBool("Jump", false);
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "obstacle")
+        {
+            collision.transform.parent.GetChild(1).GetComponent<BoxCollider2D>().enabled = false;
+            collision.GetComponent<BoxCollider2D>().enabled = false;
+            PushPlayerBack();
+        }
+    }
+
+    private void PushPlayerBack()
+    {
+        print("PushBack");
+        pushing = true;
+        rb.velocity = Vector2.left * pushVelocity;
+        rb.AddForce(Vector2.up * pushForceUp);
+        StartCoroutine(PushDuration());
+    }
+    
+    IEnumerator PushDuration()
+    {
+        yield return new WaitForSeconds(5f);
+        rb.velocity = Vector2.zero;
+        pushing = false;
     }
 }
