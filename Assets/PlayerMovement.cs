@@ -17,80 +17,150 @@ public class PlayerMovement : MonoBehaviour
     private bool pushing = false;
     private bool grinding = false;
     private bool running = true;
+    private Vector3 respawn_loc;
+    public float vertical_respawn_offset = 3.5f;
+    private float normal_gravity;
+    private int lives = 3;
+    private GameObject current_rail;
+    private float jumpTimeCounter;
+    public float jumpTime;
+    private bool isJumping;
 
     // Start is called before the first frame update
     void Start()
     {
-      
+        respawn_loc = transform.position;
+        normal_gravity = rb.gravityScale;
     }
 
     // Update is called once per frame
     void Update()
     {
-        float inputX = Input.GetAxis("Horizontal");
-        if (!pushing){
-            rb.velocity = new Vector2(inputX * speed, rb.velocity.y);
-        }
-
+        //Jump Function
         if ((grounded || grind_grounded) && !pushing)
         {
             if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W))
             {
-                rb.velocity = new Vector2(rb.velocity.x, 0);
-                rb.AddForce(Vector2.up * jumpForce);
+                isJumping = true;
+                jumpTimeCounter = jumpTime;
+                //Take care of grounded variables (identifiers)
                 grounded = false;
-                animator.SetBool("Jump", true);
+                grind_grounded = false;
+                //Reset the y velocity to a jump force
+                rb.velocity = new Vector2(0, jumpForce);
+                //TODO: Change animation control
+                //animator.SetBool("Jump", true);
+            }
+        }
+
+        if (!pushing)
+        {
+            if(Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W))
+            {
+                if (jumpTimeCounter > 0 && isJumping)
+                {
+                    rb.velocity = rb.velocity = new Vector2(0, jumpForce);
+                    jumpTimeCounter -= Time.deltaTime;
+                }
+                else
+                {
+                    isJumping = false;
+                }
+            }
+        }
+
+        if(Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.W))
+        {
+            isJumping = false;
+        }
+
+        if(grind_grounded && !pushing)
+        {
+            if (Input.GetKey(KeyCode.S))
+            {
+                print("go down");
+                //No longer grinding
+                grind_grounded = false;
+                StartCoroutine(DropThrough());
             }
         }
     }
 
     private void OnCollisionEnter2D(Collision2D obstacle)
     {
+        //If you collide with the ground
         if(obstacle.gameObject.layer == 3)
         {
+            //You are grounded
             grounded = true;
-            animator.SetBool("Jump", false);
+            //TODO: Change animation control
+            //animator.SetBool("Jump", false);
         }
         if(obstacle.gameObject.layer == 6)
         {
+            //You are grind_grounded
             grind_grounded = true;
-            animator.SetBool("Grinding", true);
+            //TODO: Change animation control
+            //animator.SetBool("Grinding", true);
+            //Save rail as object
+            current_rail = obstacle.gameObject;
         }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
+        //If you get off of a rail/grindable
         if(collision.gameObject.layer == 6)
         {
+            //No longer grind_grounded
             grind_grounded = false;
-            animator.SetBool("Grinding", false);
+            //TODO: Change animation control
+            //animator.SetBool("Grinding", false);
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //If you collide with a bumper/front of car etc.
         if(collision.tag == "obstacle")
         {
-            collision.transform.parent.GetChild(1).GetComponent<BoxCollider2D>().enabled = false;
-            collision.GetComponent<BoxCollider2D>().enabled = false;
-            PushPlayerBack();
+            StartCoroutine(PushPlayer());
         }
     }
-
-    private void PushPlayerBack()
+    
+    IEnumerator PushPlayer()
     {
+        lives--;
+        if(lives <= 0)
+        {
+            print("game over");
+        }
         pushing = true;
-        animator.SetBool("Pushing", true);
         rb.velocity = Vector2.zero;
         rb.AddForce(Vector2.left * pushForceSide);
         rb.AddForce(Vector2.up * pushForceUp);
-        StartCoroutine(PushDuration());
-    }
-    
-    IEnumerator PushDuration()
-    {
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(0.5f);
+        transform.position = respawn_loc+Vector3.up*vertical_respawn_offset;
+        rb.velocity = Vector2.zero;
+        rb.gravityScale = 0;
+        for(int i = 0; i<3; i++)
+        {
+            yield return new WaitForSeconds(0.1f);
+            rb.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            yield return new WaitForSeconds(0.1f);
+            rb.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        }
         pushing = false;
-        animator.SetBool("Pushing", false);
+        grounded = false;
+        grind_grounded = false;
+        rb.gravityScale = normal_gravity;
+        //animator.SetBool("Pushing", false);
+    }
+
+    IEnumerator DropThrough()
+    {
+        current_rail.GetComponent<EdgeCollider2D>().enabled = false;
+        yield return new WaitForSeconds(0.2f);
+        current_rail.GetComponent<EdgeCollider2D>().enabled = true; ;
     }
 }
