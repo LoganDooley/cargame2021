@@ -25,8 +25,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4386156413731857915}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.04, y: 0.03, z: 0}
-  m_LocalScale: {x: 1.05987, y: 0.7630885, z: 1}
+  m_LocalPosition: {x: -0.0172, y: 0.0194, z: 0}
+  m_LocalScale: {x: 0.9763048, y: 0.9800831, z: 1.0855}
   m_Children: []
   m_Father: {fileID: 7883074877122774263}
   m_RootOrder: 0
@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 36a0b9030b6c0f8478cfd848d7bd0169, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 83df203c18b6a3b47b2b2cb50f78d7d8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -91,11 +91,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7883074877122774263}
+  - component: {fileID: 5492064453384449886}
   - component: {fileID: 5960797957886895946}
-  - component: {fileID: 1951884377464940710}
   - component: {fileID: 7419423436827898971}
   m_Layer: 0
-  m_Name: Bumper
+  m_Name: Cone
   m_TagString: obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,12 +110,24 @@ Transform:
   m_GameObject: {fileID: 4557132236968893729}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 37.39, y: -2.3884, z: 0}
-  m_LocalScale: {x: 0.7482105, y: 1.2999358, z: 1.3997501}
+  m_LocalScale: {x: 0.8715188, y: 0.8868296, z: 1.6304349}
   m_Children:
   - {fileID: 2969178505462744516}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5492064453384449886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4557132236968893729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26fbe57de1ed93a4abb2c14ac749393e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &5960797957886895946
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -167,18 +179,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1951884377464940710
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4557132236968893729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26fbe57de1ed93a4abb2c14ac749393e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &7419423436827898971
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -192,7 +192,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.019393355, y: -0.018681645}
+  m_Offset: {x: -0.029984534, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -203,5 +203,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6502535, y: 0.9626367}
+  m_Size: {x: 0.4507637, y: 1}
   m_EdgeRadius: 0

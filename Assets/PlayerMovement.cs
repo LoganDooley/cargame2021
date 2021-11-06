@@ -25,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
     private float jumpTimeCounter;
     public float jumpTime;
     private bool isJumping;
+    public ParticleSystem winParticles;
+    private bool winning = false;
 
     // Start is called before the first frame update
     void Start()
@@ -84,6 +86,21 @@ public class PlayerMovement : MonoBehaviour
                 StartCoroutine(DropThrough());
             }
         }
+
+        //TODO: Replace with actual win condition
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Win();
+        }
+        if (winning)
+        {
+            rb.velocity += Vector2.right*2;
+        }
+    }
+
+    private void Win()
+    {
+        winning = true;
     }
 
     private void OnCollisionEnter2D(Collision2D obstacle)
@@ -122,9 +139,13 @@ public class PlayerMovement : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //If you collide with a bumper/front of car etc.
-        if(collision.tag == "obstacle")
+        if(collision.tag == "obstacle" && !pushing)
         {
             StartCoroutine(PushPlayer());
+        }
+        else
+        {
+            winParticles.Emit(100);
         }
     }
     
