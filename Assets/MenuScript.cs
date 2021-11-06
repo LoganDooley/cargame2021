@@ -23,8 +23,7 @@ public class MenuScript : MonoBehaviour
     public void ControlsButton()
     {
         // Show Controls Menu
-        MainMenu.SetActive(false);
-        ControlsMenu.SetActive(true);
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Controls");
     }
 
     public void MainMenuButton()
