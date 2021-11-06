@@ -27,7 +27,7 @@ public class BackgroundScript : MonoBehaviour
 
         if(panels[0].transform.position.x <= -20)
         {
-            panels[0].transform.position += Vector3.right * 57;
+            panels[0].transform.position += Vector3.right * 56;
             GameObject first_panel = panels[0];
             panels[0] = panels[1];
             panels[1] = panels[2];
