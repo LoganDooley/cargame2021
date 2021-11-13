@@ -11,9 +11,15 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce;
     public float pushForceUp;
     public float pushForceSide;
+
     private bool grounded;
     private bool grind_grounded;
+    private bool car_grounded;
+
     public Animator animator;
+    private string prev_anim = "running";
+    private string cur_anim = "running";
+
     private bool pushing = false;
     private bool grinding = false;
     private bool running = true;
@@ -94,7 +100,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (winning)
         {
-            rb.velocity += Vector2.right*2;
+            rb.velocity = Vector2.right*10;
         }
     }
 
@@ -121,6 +127,11 @@ public class PlayerMovement : MonoBehaviour
             //animator.SetBool("Grinding", true);
             //Save rail as object
             current_rail = obstacle.gameObject;
+        }
+        if(obstacle.gameObject.layer == 7)
+        {
+            //You are car_grounded
+            car_grounded = true;
         }
     }
 
@@ -183,5 +194,33 @@ public class PlayerMovement : MonoBehaviour
         current_rail.GetComponent<EdgeCollider2D>().enabled = false;
         yield return new WaitForSeconds(0.2f);
         current_rail.GetComponent<EdgeCollider2D>().enabled = true; ;
+    }
+
+    private void AnimationControl()
+    {
+        if(cur_anim != prev_anim)
+        {
+            prev_anim = cur_anim;
+            if (cur_anim == "running")
+            {
+
+            }
+            else if (cur_anim == "jumping up")
+            {
+
+            }
+            else if (cur_anim == "jumping down")
+            {
+
+            }
+            else if(cur_anim == "grinding")
+            {
+
+            }
+            else if(cur_anim == "pushing")
+            {
+
+            }
+        }
     }
 }
