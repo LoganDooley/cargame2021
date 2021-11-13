@@ -20,6 +20,11 @@ public class ControlsScript : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene("MenuScene");
     }
 
+    public void Play()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Level 1");
+    }
+
     // public void UpButton()
     // {
     //     // Show Controls Menu
