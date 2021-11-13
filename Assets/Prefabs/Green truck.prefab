@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 4491292948886379505}
   - component: {fileID: 2407501943858588562}
   - component: {fileID: 4650285691520157865}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Green truck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -228,7 +228,7 @@ EdgeCollider2D:
   m_EdgeRadius: 0
   m_Points:
   - {x: -1.7261596, y: 0.51969576}
-  - {x: 3.357529, y: 0.52446365}
+  - {x: 3.357529, y: 0.5196958}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -263,7 +263,7 @@ GameObject:
   - component: {fileID: 1511456784163710659}
   - component: {fileID: 1511456784163710656}
   - component: {fileID: 1511456784163710658}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Bumper
   m_TagString: obstacle
   m_Icon: {fileID: 0}
@@ -372,7 +372,7 @@ GameObject:
   - component: {fileID: 4030590709235145693}
   - component: {fileID: 7147204683333034}
   - component: {fileID: 1128852536724284157}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Bumper (2)
   m_TagString: obstacle
   m_Icon: {fileID: 0}
@@ -481,7 +481,7 @@ GameObject:
   - component: {fileID: 6614808057618799736}
   - component: {fileID: 159648829437238748}
   - component: {fileID: 629849034831151215}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Bumper (1)
   m_TagString: obstacle
   m_Icon: {fileID: 0}
@@ -589,7 +589,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6973649411203082577}
   - component: {fileID: 7091241312467737668}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
