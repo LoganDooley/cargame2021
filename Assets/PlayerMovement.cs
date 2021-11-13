@@ -33,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isJumping;
     public ParticleSystem winParticles;
     private bool winning = false;
+    private bool invincible = false;
 
     // Start is called before the first frame update
     void Start()
@@ -102,6 +103,35 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = Vector2.right*10;
         }
+        UpdateCurAnim();
+        AnimationControl();
+    }
+
+    private void UpdateCurAnim()
+    {
+        if (rb.velocity.y > 0.1f)
+        {
+            cur_anim = "jumping up";
+        }
+        else if (rb.velocity.y < -0.1f )
+        {
+            cur_anim = "jumping down";
+        }
+        else if(!pushing)
+        {
+            if (car_grounded || grind_grounded)
+            {
+                cur_anim = "grinding";
+            }
+            else
+            {
+                cur_anim = "running";
+            }
+        }
+        if(rb.velocity.x < -0.1f)
+        {
+            cur_anim = "pushing";
+        }
     }
 
     private void Win()
@@ -150,7 +180,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //If you collide with a bumper/front of car etc.
-        if(collision.tag == "obstacle" && !pushing)
+        if(collision.tag == "obstacle" && !pushing && !invincible)
         {
             StartCoroutine(PushPlayer());
         }
@@ -175,6 +205,7 @@ public class PlayerMovement : MonoBehaviour
         transform.position = respawn_loc+Vector3.up*vertical_respawn_offset;
         rb.velocity = Vector2.zero;
         rb.gravityScale = 0;
+        cur_anim = "respawning";
         for(int i = 0; i<3; i++)
         {
             yield return new WaitForSeconds(0.1f);
@@ -186,7 +217,16 @@ public class PlayerMovement : MonoBehaviour
         grounded = false;
         grind_grounded = false;
         rb.gravityScale = normal_gravity;
-        //animator.SetBool("Pushing", false);
+        //Respawn frames
+        invincible = true;
+        for (int i = 0; i < 10; i++)
+        {
+            yield return new WaitForSeconds(0.1f);
+            rb.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            yield return new WaitForSeconds(0.1f);
+            rb.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        }
+        invincible = false;
     }
 
     IEnumerator DropThrough()
@@ -203,23 +243,28 @@ public class PlayerMovement : MonoBehaviour
             prev_anim = cur_anim;
             if (cur_anim == "running")
             {
-
+                print("run");
+                animator.SetTrigger("Running");
             }
             else if (cur_anim == "jumping up")
             {
-
+                print("jump up");
+                animator.SetTrigger("JumpingUp");
             }
             else if (cur_anim == "jumping down")
             {
-
+                print("jump down");
+                animator.SetTrigger("JumpingDown");
             }
             else if(cur_anim == "grinding")
             {
-
+                print("grinding");
+                animator.SetTrigger("Grinding");
             }
             else if(cur_anim == "pushing")
             {
-
+                print("pushing");
+                animator.SetTrigger("Pushing");
             }
         }
     }
