@@ -702,7 +702,7 @@ MonoBehaviour:
   - {fileID: 1523302541}
   - {fileID: 1730153420}
   - {fileID: 1896592018}
-  base_speed: 7
+  base_speed: 3
 --- !u!210 &319661412
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -1743,7 +1743,7 @@ MonoBehaviour:
   - {fileID: 1460023467}
   - {fileID: 1883135931}
   - {fileID: 1181426995}
-  base_speed: 7
+  base_speed: 5
 --- !u!210 &941371081
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -2428,7 +2428,7 @@ MonoBehaviour:
   - {fileID: 639761156}
   - {fileID: 714808573}
   - {fileID: 1427973022}
-  base_speed: 9
+  base_speed: 1
 --- !u!114 &1196764110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2736,7 +2736,7 @@ MonoBehaviour:
   - {fileID: 160118487}
   - {fileID: 1079455842}
   - {fileID: 1216711506}
-  base_speed: 1
+  base_speed: 4
 --- !u!114 &1271228955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3819,7 +3819,7 @@ MonoBehaviour:
   - {fileID: 1391486273}
   - {fileID: 226212319}
   - {fileID: 580178175}
-  base_speed: 9
+  base_speed: 2
 --- !u!210 &1749014780
 SortingGroup:
   m_ObjectHideFlags: 0
