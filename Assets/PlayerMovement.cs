@@ -37,6 +37,8 @@ public class PlayerMovement : MonoBehaviour
 
     public Sprite EndPost;
 
+    public GameObject layers[];
+
     // Start is called before the first frame update
     void Start()
     {
@@ -139,6 +141,14 @@ public class PlayerMovement : MonoBehaviour
     private void Win()
     {
         winning = true;
+        # stop background layers (call StopMoving on each layer)
+        // for (int i = 0; i < layers.size(); i++) 
+        // {
+
+
+        // }
+        # stop music
+        # let player run offscreen
     }
 
     private void OnCollisionEnter2D(Collision2D obstacle)
