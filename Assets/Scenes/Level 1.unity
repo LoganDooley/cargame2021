@@ -5877,11 +5877,19 @@ MonoBehaviour:
   jumpForce: 10
   pushForceUp: 1000
   pushForceSide: 800
+  grind_grounded: 0
   animator: {fileID: 482762666}
   vertical_respawn_offset: 5
   jumpTime: 0.3
   winParticles: {fileID: 1605597921}
-  EndPost: {fileID: 0}
+  layers:
+  - {fileID: 1196764107}
+  - {fileID: 1749014777}
+  - {fileID: 319661409}
+  - {fileID: 1271228952}
+  - {fileID: 941371078}
+  - {fileID: 2145840466}
+  audio: {fileID: 482762671}
 --- !u!50 &482762669
 Rigidbody2D:
   serializedVersion: 4
@@ -11123,9 +11131,9 @@ GameObject:
   - component: {fileID: 960672301}
   - component: {fileID: 960672300}
   - component: {fileID: 960672299}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EndPost
-  m_TagString: Untagged
+  m_TagString: endpost
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11142,6 +11150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26fbe57de1ed93a4abb2c14ac749393e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 8
 --- !u!61 &960672300
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11227,7 +11236,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 960672298}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 570.49, y: 1.44, z: 0}
+  m_LocalPosition: {x: 23, y: 1.44, z: 0}
   m_LocalScale: {x: 1, y: 13.217041, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -22701,7 +22710,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1649135834
 Transform:
   m_ObjectHideFlags: 0
@@ -28240,6 +28249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26fbe57de1ed93a4abb2c14ac749393e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 8
 --- !u!212 &2107687761
 SpriteRenderer:
   m_ObjectHideFlags: 0
