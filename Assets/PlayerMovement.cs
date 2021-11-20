@@ -35,6 +35,8 @@ public class PlayerMovement : MonoBehaviour
     private bool winning = false;
     private bool invincible = false;
 
+    public Sprite EndPost;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -183,6 +185,10 @@ public class PlayerMovement : MonoBehaviour
         if(collision.tag == "obstacle" && !pushing && !invincible)
         {
             StartCoroutine(PushPlayer());
+        }
+        else if (collision.Equals(EndPost))
+        {
+            Win();
         }
         else
         {

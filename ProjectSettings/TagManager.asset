@@ -14,7 +14,7 @@ TagManager:
   - UI
   - grindable
   - 
-  - 
+  - particles
   - 
   - 
   - 
@@ -74,4 +74,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 1261159479
+    locked: 0
+  - name: Particles
+    uniqueID: 4124819131
     locked: 0
