@@ -13,28 +13,39 @@ public class BackgroundScript : MonoBehaviour
 
     public GameObject[] panels = new GameObject[3];
     public float base_speed;
+    private bool move = true;
 
     void Start() 
     {
+        move = true;
     }
 
     void Update()
     {
-        for(int i = 0; i<panels.Length; i++)
+        if (move)
         {
-            panels[i].transform.position += Vector3.left * base_speed * Time.deltaTime;
-        }
+            for (int i = 0; i < panels.Length; i++)
+            {
+                panels[i].transform.position += Vector3.left * base_speed * Time.deltaTime;
+            }
 
-        if(panels[0].transform.position.x <= -20)
-        {
-            panels[0].transform.position += Vector3.right * 56;
-            GameObject first_panel = panels[0];
-            panels[0] = panels[1];
-            panels[1] = panels[2];
-            panels[2] = first_panel;
+            if (panels[0].transform.position.x <= -20)
+            {
+                panels[0].transform.position += Vector3.right * 56;
+                GameObject first_panel = panels[0];
+                panels[0] = panels[1];
+                panels[1] = panels[2];
+                panels[2] = first_panel;
+            }
         }
     }
+
+    public void StopMoving()
+    {
+        move = false;
+    }
 }
+
     // public GameObject[] layers;
     // // next time todos: make a 2d array for layers. each time boundary is reached, 
     // // move the panel at position 0 to position 1, the one at position 1 to position 
