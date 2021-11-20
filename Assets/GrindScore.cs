@@ -6,6 +6,7 @@ public class GrindScore : MonoBehaviour
 {
     public float GrindNum = 0;
     public GameObject player;
+    public GameObject score;
     private bool grinding;
 
     // Start is called before the first frame update
@@ -22,5 +23,6 @@ public class GrindScore : MonoBehaviour
         {
             GrindNum = GrindNum + 1;
         }
+        score.gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = (GrindNum / 10).ToString("#");
     }
 }

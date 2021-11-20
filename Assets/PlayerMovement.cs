@@ -36,7 +36,6 @@ public class PlayerMovement : MonoBehaviour
     private bool winning = false;
     private bool invincible = false;
 
-    public GameObject EndPost;
 
     public GameObject[] layers = new GameObject[6];
     public AudioSource audio;
@@ -93,7 +92,6 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.S))
             {
-                print("go down");
                 //No longer grinding
                 grind_grounded = false;
                 StartCoroutine(DropThrough());
@@ -199,7 +197,7 @@ public class PlayerMovement : MonoBehaviour
         {
             StartCoroutine(PushPlayer());
         }
-        else if (collision.Equals(EndPost))
+        else if (collision.tag == "endpost")
         {
             Win();
         }
@@ -262,27 +260,22 @@ public class PlayerMovement : MonoBehaviour
             prev_anim = cur_anim;
             if (cur_anim == "running")
             {
-                print("run");
                 animator.SetTrigger("Running");
             }
             else if (cur_anim == "jumping up")
             {
-                print("jump up");
                 animator.SetTrigger("JumpingUp");
             }
             else if (cur_anim == "jumping down")
             {
-                print("jump down");
                 animator.SetTrigger("JumpingDown");
             }
             else if(cur_anim == "grinding")
             {
-                print("grinding");
                 animator.SetTrigger("Grinding");
             }
             else if(cur_anim == "pushing")
             {
-                print("pushing");
                 animator.SetTrigger("Pushing");
             }
         }
