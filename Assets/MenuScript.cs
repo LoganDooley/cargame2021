@@ -17,13 +17,13 @@ public class MenuScript : MonoBehaviour
     public void PlayNowButton()
     {
         // Play Now Button has been pressed, here you can initialize your game (For example Load a Scene called GameLevel etc.)
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Parallax");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Level 1");
     }
 
     public void ControlsButton()
     {
         // Show Controls Menu
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Controls");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("ControlsMenu");
     }
 
     public void MainMenuButton()
