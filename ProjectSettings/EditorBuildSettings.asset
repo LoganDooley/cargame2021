@@ -6,18 +6,24 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MenuScene.unity
+    guid: 8acdba16c8eed40fe9652fd8b5c2b65f
+  - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Scenes/Parallax.unity
     guid: f805a9a7f90d758408f8309daf01422a
   - enabled: 1
-    path: Assets/Scenes/MenuScene.unity
-    guid: 8acdba16c8eed40fe9652fd8b5c2b65f
-  - enabled: 1
     path: Assets/Scenes/ControlsMenu.unity
     guid: 40ee355e09f4548fab963849acb7992b
   - enabled: 1
     path: Assets/Scenes/Level 1.unity
     guid: 88aaecb5673f54247a7ea97112b2d7a6
+  - enabled: 1
+    path: Assets/Scenes/Win.unity
+    guid: 528f92de50cea6a4ebf3f4df3ace321d
+  - enabled: 1
+    path: Assets/Scenes/Lose.unity
+    guid: 4ea7cecaf22339244b8e0dc25ea4864f
   m_configObjects: {}

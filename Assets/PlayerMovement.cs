@@ -192,6 +192,7 @@ public class PlayerMovement : MonoBehaviour
     
     IEnumerator PushPlayer()
     {
+        invincible = true;
         lives--;
         if(lives <= 0)
         {
@@ -218,7 +219,6 @@ public class PlayerMovement : MonoBehaviour
         grind_grounded = false;
         rb.gravityScale = normal_gravity;
         //Respawn frames
-        invincible = true;
         for (int i = 0; i < 10; i++)
         {
             yield return new WaitForSeconds(0.1f);
