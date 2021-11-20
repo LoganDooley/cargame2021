@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -36,6 +36,11 @@ public class PlayerMovement : MonoBehaviour
     private bool winning = false;
     private bool invincible = false;
 
+    public GameObject life0;
+    public GameObject life1;
+    public GameObject life2;
+    public GameObject life3;
+
 
     public GameObject[] layers = new GameObject[6];
     public AudioSource audio;
@@ -45,11 +50,17 @@ public class PlayerMovement : MonoBehaviour
     {
         respawn_loc = transform.position;
         normal_gravity = rb.gravityScale;
+        Destroy(GameObject.Find("Audio Manager"));
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(transform.position.x >= 8.9f)
+        {
+            winParticles.Emit(200);
+        }
+        print(lives);
         //Jump Function
         if ((grounded || grind_grounded) && !pushing)
         {
@@ -140,16 +151,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void Win()
     {
-        Console.WriteLine("Inside Win");
+        print("Inside Win");
         winning = true;
         for (int i = 0; i < layers.Length; i++)  // stop background layers
         {
-            Console.WriteLine("This is C#");
+            print("This is C#");
             layers[i].GetComponent<BackgroundScript>().StopMoving();
         }
         audio.Stop(); // stop music
 
         // let player run offscreen
+        StartCoroutine(TransitionToWin());
     }
 
     private void OnCollisionEnter2D(Collision2D obstacle)
@@ -201,18 +213,25 @@ public class PlayerMovement : MonoBehaviour
         {
             Win();
         }
-        else
-        {
-            winParticles.Emit(100);
-        }
     }
     
     IEnumerator PushPlayer()
     {
         invincible = true;
         lives--;
-        if(lives <= 0)
+        if(lives == 2)
         {
+            life3.SetActive(false);
+            life2.SetActive(true);
+        } else if(lives == 1)
+        {
+            life2.SetActive(false);
+            life1.SetActive(true);
+        } else if(lives == 0)
+        {
+            life1.SetActive(false);
+            life0.SetActive(true);
+            SceneManager.LoadScene("Lose");
             print("game over");
         }
         pushing = true;
@@ -236,11 +255,11 @@ public class PlayerMovement : MonoBehaviour
         grind_grounded = false;
         rb.gravityScale = normal_gravity;
         //Respawn frames
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 20; i++)
         {
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.125f);
             rb.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.125f);
             rb.gameObject.GetComponent<SpriteRenderer>().enabled = true;
         }
         invincible = false;
@@ -250,7 +269,13 @@ public class PlayerMovement : MonoBehaviour
     {
         current_rail.GetComponent<EdgeCollider2D>().enabled = false;
         yield return new WaitForSeconds(0.2f);
-        current_rail.GetComponent<EdgeCollider2D>().enabled = true; ;
+        current_rail.GetComponent<EdgeCollider2D>().enabled = true;
+    }
+
+    IEnumerator TransitionToWin()
+    {
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene("Win");
     }
 
     private void AnimationControl()
