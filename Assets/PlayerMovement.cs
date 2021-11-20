@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -35,9 +36,10 @@ public class PlayerMovement : MonoBehaviour
     private bool winning = false;
     private bool invincible = false;
 
-    public Sprite EndPost;
+    public GameObject EndPost;
 
-    public GameObject layers[];
+    public GameObject[] layers = new GameObject[6];
+    public AudioSource audio;
 
     // Start is called before the first frame update
     void Start()
@@ -140,15 +142,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void Win()
     {
+        Console.WriteLine("Inside Win");
         winning = true;
-        # stop background layers (call StopMoving on each layer)
-        // for (int i = 0; i < layers.size(); i++) 
-        // {
+        for (int i = 0; i < layers.Length; i++)  // stop background layers
+        {
+            Console.WriteLine("This is C#");
+            layers[i].GetComponent<BackgroundScript>().StopMoving();
+        }
+        audio.Stop(); // stop music
 
-
-        // }
-        # stop music
-        # let player run offscreen
+        // let player run offscreen
     }
 
     private void OnCollisionEnter2D(Collision2D obstacle)
