@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public float pushForceSide;
 
     private bool grounded;
-    private bool grind_grounded;
+    public bool grind_grounded;
     private bool car_grounded;
 
     public Animator animator;
@@ -35,9 +36,9 @@ public class PlayerMovement : MonoBehaviour
     private bool winning = false;
     private bool invincible = false;
 
-    public Sprite EndPost;
 
-    public GameObject layers[];
+    public GameObject[] layers = new GameObject[6];
+    public AudioSource audio;
 
     // Start is called before the first frame update
     void Start()
@@ -91,7 +92,6 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.S))
             {
-                print("go down");
                 //No longer grinding
                 grind_grounded = false;
                 StartCoroutine(DropThrough());
@@ -140,15 +140,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void Win()
     {
+        Console.WriteLine("Inside Win");
         winning = true;
-        # stop background layers (call StopMoving on each layer)
-        // for (int i = 0; i < layers.size(); i++) 
-        // {
+        for (int i = 0; i < layers.Length; i++)  // stop background layers
+        {
+            Console.WriteLine("This is C#");
+            layers[i].GetComponent<BackgroundScript>().StopMoving();
+        }
+        audio.Stop(); // stop music
 
-
-        // }
-        # stop music
-        # let player run offscreen
+        // let player run offscreen
     }
 
     private void OnCollisionEnter2D(Collision2D obstacle)
@@ -196,7 +197,7 @@ public class PlayerMovement : MonoBehaviour
         {
             StartCoroutine(PushPlayer());
         }
-        else if (collision.Equals(EndPost))
+        else if (collision.tag == "endpost")
         {
             Win();
         }
@@ -259,27 +260,22 @@ public class PlayerMovement : MonoBehaviour
             prev_anim = cur_anim;
             if (cur_anim == "running")
             {
-                print("run");
                 animator.SetTrigger("Running");
             }
             else if (cur_anim == "jumping up")
             {
-                print("jump up");
                 animator.SetTrigger("JumpingUp");
             }
             else if (cur_anim == "jumping down")
             {
-                print("jump down");
                 animator.SetTrigger("JumpingDown");
             }
             else if(cur_anim == "grinding")
             {
-                print("grinding");
                 animator.SetTrigger("Grinding");
             }
             else if(cur_anim == "pushing")
             {
-                print("pushing");
                 animator.SetTrigger("Pushing");
             }
         }
