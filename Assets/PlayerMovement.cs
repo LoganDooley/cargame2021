@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public float pushForceSide;
 
     private bool grounded;
-    private bool grind_grounded;
+    public bool grind_grounded;
     private bool car_grounded;
 
     public Animator animator;
