@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LoseScript : MonoBehaviour
 {
-    public GameObject MainMenu;
+    // public GameObject MainMenu;
     public GameObject LoseMenu;
 
     void Start()
@@ -21,6 +21,6 @@ public class LoseScript : MonoBehaviour
     public void LoseButton()
     {
         LoseMenu.SetActive(true);
-        MainMenu.SetActive(false);
+        // MainMenu.SetActive(false);
     }
 }

@@ -26,12 +26,12 @@ public class CreditsScript : MonoBehaviour
         {
             for (int i = 0; i < panels.Length; i++)
             {
-                panels[i].transform.position += Vector3.left * base_speed * Time.deltaTime;
+                panels[i].transform.position += Vector3.up * base_speed * Time.deltaTime;
             }
 
-            if (panels[0].transform.position.x <= -20)
+            if (panels[0].transform.position.y >= 47.7f)
             {
-                panels[0].transform.position += Vector3.right * 56;
+                panels[0].transform.position += Vector3.down * 95.4f;
                 GameObject first_panel = panels[0];
                 panels[0] = panels[1];
                 panels[1] = panels[2];

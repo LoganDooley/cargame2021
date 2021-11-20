@@ -5,7 +5,7 @@ using UnityEngine;
 public class MenuScript : MonoBehaviour
 {
     public GameObject MainMenu;
-    public GameObject ControlsMenu;
+    // public GameObject ControlsMenu;
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +30,7 @@ public class MenuScript : MonoBehaviour
     {
         // Show Main Menu
         MainMenu.SetActive(true);
-        ControlsMenu.SetActive(false);
+        // ControlsMenu.SetActive(false);
     }
 
     public void ExitButton()
