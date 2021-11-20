@@ -40,6 +40,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: frame
+    uniqueID: 2544126399
+    locked: 0
   - name: Para3
     uniqueID: 689845125
     locked: 0

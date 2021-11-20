@@ -23,6 +23,13 @@ public class GrindScore : MonoBehaviour
         {
             GrindNum = GrindNum + 1;
         }
-        score.gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = (GrindNum / 10).ToString("#");
+        if (GrindNum == 0f)
+        {
+            score.gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = "0";
+        }
+        else
+        {
+            score.gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = (GrindNum / 10).ToString("#");
+        }
     }
 }
