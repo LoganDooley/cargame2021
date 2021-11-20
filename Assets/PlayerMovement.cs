@@ -255,11 +255,11 @@ public class PlayerMovement : MonoBehaviour
         grind_grounded = false;
         rb.gravityScale = normal_gravity;
         //Respawn frames
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 20; i++)
         {
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(0.125f);
             rb.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(0.125f);
             rb.gameObject.GetComponent<SpriteRenderer>().enabled = true;
         }
         invincible = false;
