@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6637395721561497016}
   - component: {fileID: 6425208863949648020}
   - component: {fileID: 6768898639812313195}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Bumper (1)
   m_TagString: obstacle
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 2965604916586765907}
   - component: {fileID: 2965604916586765904}
   - component: {fileID: 2965604916586765906}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Bumper
   m_TagString: obstacle
   m_Icon: {fileID: 0}
@@ -231,7 +231,7 @@ GameObject:
   - component: {fileID: 255143040177808225}
   - component: {fileID: 5991398848885577523}
   - component: {fileID: 8911933227955150993}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: red car
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -268,6 +268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26fbe57de1ed93a4abb2c14ac749393e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 8.5
 --- !u!212 &255143040177808225
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -371,7 +372,7 @@ GameObject:
   - component: {fileID: 2965604917736345207}
   - component: {fileID: 2965604917736345204}
   - component: {fileID: 2965604917736345205}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -479,7 +480,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6708486764777951681}
   - component: {fileID: 6897001684335469780}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
