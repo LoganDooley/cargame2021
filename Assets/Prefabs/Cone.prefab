@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 5492064453384449886}
   - component: {fileID: 5960797957886895946}
   - component: {fileID: 7419423436827898971}
+  - component: {fileID: 3066783400055005536}
   m_Layer: 0
   m_Name: Cone
   m_TagString: obstacle
@@ -128,7 +129,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26fbe57de1ed93a4abb2c14ac749393e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 8
 --- !u!212 &5960797957886895946
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -206,3 +206,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.4507637, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &3066783400055005536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4557132236968893729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6f86600d93a950429e1e01c76514b12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

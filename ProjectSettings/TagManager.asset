@@ -6,6 +6,7 @@ TagManager:
   tags:
   - obstacle
   - endpost
+  - player
   layers:
   - Default
   - TransparentFX
@@ -75,6 +76,9 @@ TagManager:
     locked: 0
   - name: level
     uniqueID: 4251413985
+    locked: 0
+  - name: Speed
+    uniqueID: 1185243895
     locked: 0
   - name: Player
     uniqueID: 1261159479

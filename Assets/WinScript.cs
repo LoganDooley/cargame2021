@@ -17,6 +17,11 @@ public class WinScript : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene("MenuScene");
     }
 
+    public void LoadCredits()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Credits");
+    }
+
     public void WinButton()
     {
         WinMenu.SetActive(true);

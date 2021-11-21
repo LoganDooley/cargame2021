@@ -29,9 +29,9 @@ public class CreditsScript : MonoBehaviour
                 panels[i].transform.position += Vector3.up * base_speed * Time.deltaTime;
             }
 
-            if (panels[0].transform.position.y >= 47.7f)
+            if (panels[0].transform.position.y >= 41f)
             {
-                panels[0].transform.position += Vector3.down * 95.4f;
+                panels[0].transform.position += Vector3.down * 123f;
                 GameObject first_panel = panels[0];
                 panels[0] = panels[1];
                 panels[1] = panels[2];

@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 5960797957886895946}
   - component: {fileID: 1951884377464940710}
   - component: {fileID: 7419423436827898971}
+  - component: {fileID: 1616985048160328750}
   m_Layer: 0
   m_Name: Bumper
   m_TagString: obstacle
@@ -179,7 +180,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26fbe57de1ed93a4abb2c14ac749393e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 8
 --- !u!61 &7419423436827898971
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -206,3 +206,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6502535, y: 0.9626367}
   m_EdgeRadius: 0
+--- !u!114 &1616985048160328750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4557132236968893729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6f86600d93a950429e1e01c76514b12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -139,6 +139,7 @@ GameObject:
   - component: {fileID: 8112042408440511138}
   - component: {fileID: 969023404180711007}
   - component: {fileID: 4387130123879201604}
+  - component: {fileID: -559947697425275619}
   m_Layer: 0
   m_Name: wheel
   m_TagString: obstacle
@@ -250,3 +251,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-559947697425275619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6105632561888595749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2db150911c1075a429409f4bdbedfad0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

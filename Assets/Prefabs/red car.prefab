@@ -231,6 +231,7 @@ GameObject:
   - component: {fileID: 255143040177808225}
   - component: {fileID: 5991398848885577523}
   - component: {fileID: 8911933227955150993}
+  - component: {fileID: 8740890524507832382}
   m_Layer: 6
   m_Name: red car
   m_TagString: Untagged
@@ -268,7 +269,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26fbe57de1ed93a4abb2c14ac749393e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 8.5
 --- !u!212 &255143040177808225
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -361,6 +361,18 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
+--- !u!114 &8740890524507832382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2965604917207241242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f90e06a813a14b41944d9bf0a31a241, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2965604917736345202
 GameObject:
   m_ObjectHideFlags: 0

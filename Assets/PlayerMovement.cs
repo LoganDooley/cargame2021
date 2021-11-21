@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce;
     public float pushForceUp;
     public float pushForceSide;
+    private float startx;
 
     private bool grounded;
     public bool grind_grounded;
@@ -48,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        startx = transform.position.x;
         respawn_loc = transform.position;
         normal_gravity = rb.gravityScale;
         Destroy(GameObject.Find("Audio Manager"));
@@ -92,6 +94,7 @@ public class PlayerMovement : MonoBehaviour
                     isJumping = false;
                 }
             }
+            transform.position += Vector3.right * (startx - transform.position.x);
         }
 
         if(Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.W))
@@ -255,7 +258,7 @@ public class PlayerMovement : MonoBehaviour
         grind_grounded = false;
         rb.gravityScale = normal_gravity;
         //Respawn frames
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 15; i++)
         {
             yield return new WaitForSeconds(0.125f);
             rb.gameObject.GetComponent<SpriteRenderer>().enabled = false;
@@ -282,6 +285,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if(cur_anim != prev_anim)
         {
+            if(prev_anim == "grinding")
+            {
+                GameObject child = transform.Find("GrindSound").gameObject;
+                child.GetComponent<AudioSource>().Stop();
+            }
             prev_anim = cur_anim;
             if (cur_anim == "running")
             {
@@ -297,6 +305,8 @@ public class PlayerMovement : MonoBehaviour
             }
             else if(cur_anim == "grinding")
             {
+                GameObject child = transform.Find("GrindSound").gameObject;
+                child.GetComponent<AudioSource>().Play();
                 animator.SetTrigger("Grinding");
             }
             else if(cur_anim == "pushing")
