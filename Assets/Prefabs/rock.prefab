@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3453664537272239214}
   - component: {fileID: 6457549657800370239}
-  - component: {fileID: 2629179704604226754}
   - component: {fileID: 1579680718816995801}
+  - component: {fileID: 6251143496624161054}
   m_Layer: 0
   m_Name: rock
   m_TagString: obstacle
@@ -45,32 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26fbe57de1ed93a4abb2c14ac749393e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!61 &2629179704604226754
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9058287870372961720}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.016898632, y: 0.000000059604645}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.25, y: 2.07}
-    newSize: {x: 3.25, y: 2.07}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 3.3320155, y: 1.8787304}
-  m_EdgeRadius: 0
 --- !u!212 &1579680718816995801
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -122,3 +96,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!70 &6251143496624161054
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9058287870372961720}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.23242752, y: -0.12800334}
+  m_Size: {x: 2.2259743, y: 1.336686}
+  m_Direction: 1

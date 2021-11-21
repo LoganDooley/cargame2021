@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public float pushForceUp;
     public float pushForceSide;
     private float startx;
+    private float freezey;
 
     private bool grounded;
     public bool grind_grounded;
@@ -44,7 +45,17 @@ public class PlayerMovement : MonoBehaviour
 
 
     public GameObject[] layers = new GameObject[6];
-    public AudioSource audio;
+    public AudioSource myAudio;
+    public AudioSource loseAudio;
+
+    public Material dissolveMat;
+    private bool isDissolving = false;
+    private float fade = 0f;
+
+    private bool isSpawning = true;
+    public GameObject speedChanger;
+    private bool dying = false;
+    public GameObject scoreHolder;
 
     // Start is called before the first frame update
     void Start()
@@ -58,11 +69,31 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(transform.position.x >= 8.9f)
+        if (isDissolving)
+        {
+            fade -= Time.deltaTime/1.9f;
+            if (fade <= 0)
+            {
+                fade = 0f;
+                isDissolving = false;
+            }
+            dissolveMat.SetFloat("_Fade", fade);
+        }
+        if (isSpawning)
+        {
+            fade += Time.deltaTime/1.5f;
+            if(fade >= 1)
+            {
+                fade = 1f;
+                isSpawning = false;
+            }
+            dissolveMat.SetFloat("_Fade", fade);
+        }
+
+        if(transform.position.x >= 8.9f && winning)
         {
             winParticles.Emit(200);
         }
-        print(lives);
         //Jump Function
         if ((grounded || grind_grounded) && !pushing)
         {
@@ -80,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (!pushing)
+        if (!pushing && !winning)
         {
             if(Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W))
             {
@@ -95,6 +126,12 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
             transform.position += Vector3.right * (startx - transform.position.x);
+        }
+
+        if (dying)
+        {
+            transform.position += Vector3.right * (startx - transform.position.x);
+            transform.position += Vector3.up * (freezey - transform.position.y);
         }
 
         if(Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.W))
@@ -113,10 +150,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //TODO: Replace with actual win condition
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            Win();
-        }
         if (winning)
         {
             rb.velocity = Vector2.right*10;
@@ -154,14 +187,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void Win()
     {
-        print("Inside Win");
         winning = true;
         for (int i = 0; i < layers.Length; i++)  // stop background layers
         {
-            print("This is C#");
             layers[i].GetComponent<BackgroundScript>().StopMoving();
         }
-        audio.Stop(); // stop music
+        myAudio.Stop(); // stop music
 
         // let player run offscreen
         StartCoroutine(TransitionToWin());
@@ -215,11 +246,22 @@ public class PlayerMovement : MonoBehaviour
         else if (collision.tag == "endpost")
         {
             Win();
+        } else if(collision.tag == "car" && !pushing && !invincible)
+        {
+            StartCoroutine(PushPlayer());
+            transform.Find("CarSound").gameObject.GetComponent<AudioSource>().Play();
+            print("Car collide");
+        } else if(collision.tag == "truck" && !pushing && !invincible)
+        {
+            StartCoroutine(PushPlayer());
+            transform.Find("TruckSound").gameObject.GetComponent<AudioSource>().Play();
+            print("truck Collide");
         }
     }
     
     IEnumerator PushPlayer()
     {
+        scoreHolder.GetComponent<ScoreHolder>().UpdateLifeScore(lives*50);
         invincible = true;
         lives--;
         if(lives == 2)
@@ -230,42 +272,68 @@ public class PlayerMovement : MonoBehaviour
         {
             life2.SetActive(false);
             life1.SetActive(true);
-        } else if(lives == 0)
+        }
+        if (lives == 0)
         {
+            freezey = transform.position.y;
             life1.SetActive(false);
             life0.SetActive(true);
-            SceneManager.LoadScene("Lose");
-            print("game over");
-        }
-        pushing = true;
-        rb.velocity = Vector2.zero;
-        rb.AddForce(Vector2.left * pushForceSide);
-        rb.AddForce(Vector2.up * pushForceUp);
-        yield return new WaitForSeconds(0.5f);
-        transform.position = respawn_loc+Vector3.up*vertical_respawn_offset;
-        rb.velocity = Vector2.zero;
-        rb.gravityScale = 0;
-        cur_anim = "respawning";
-        for(int i = 0; i<3; i++)
+            dying = true;
+            isDissolving = true;
+            StartCoroutine(LoseGame());
+            cur_anim = "respawning";
+        } else if(lives != 0 && !dying && !isDissolving)
         {
-            yield return new WaitForSeconds(0.1f);
-            rb.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            yield return new WaitForSeconds(0.1f);
-            rb.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+            pushing = true;
+            rb.velocity = Vector2.zero;
+            rb.AddForce(Vector2.left * pushForceSide);
+            rb.AddForce(Vector2.up * pushForceUp);
+            yield return new WaitForSeconds(0.5f);
+            transform.position = respawn_loc + Vector3.up * vertical_respawn_offset;
+            rb.velocity = Vector2.zero;
+            rb.gravityScale = 0;
+            cur_anim = "respawning";
+            for (int i = 0; i < 3; i++)
+            {
+                yield return new WaitForSeconds(0.1f);
+                rb.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                yield return new WaitForSeconds(0.1f);
+                rb.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+            }
+            pushing = false;
+            grounded = false;
+            grind_grounded = false;
+            rb.gravityScale = normal_gravity;
+            //Respawn frames
+            for (int i = 0; i < 15; i++)
+            {
+                yield return new WaitForSeconds(0.125f);
+                rb.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                yield return new WaitForSeconds(0.125f);
+                rb.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+            }
+            invincible = false;
         }
-        pushing = false;
-        grounded = false;
-        grind_grounded = false;
-        rb.gravityScale = normal_gravity;
-        //Respawn frames
-        for (int i = 0; i < 15; i++)
+    }
+
+    IEnumerator LoseGame()
+    {
+        dying = true;
+        for (int i = 0; i < layers.Length; i++)  // stop background layers
         {
-            yield return new WaitForSeconds(0.125f);
-            rb.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            yield return new WaitForSeconds(0.125f);
-            rb.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+            layers[i].GetComponent<BackgroundScript>().StopMoving();
         }
-        invincible = false;
+        loseAudio.Play();
+        transform.gameObject.GetComponent<ParticleSystem>().Play();
+        cur_anim = "pushing";
+        prev_anim = "pushing";
+        animator.SetTrigger("Pushing");
+        speedChanger.GetComponent<SpeedChanger>().StopObjects();
+        GetComponent<AudioSource>().Stop(); // stop music
+        isDissolving = true;
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene("Lose");
+        //TODO: Stop all objects from moving
     }
 
     IEnumerator DropThrough()
@@ -310,6 +378,10 @@ public class PlayerMovement : MonoBehaviour
                 animator.SetTrigger("Grinding");
             }
             else if(cur_anim == "pushing")
+            {
+                animator.SetTrigger("Pushing");
+            }
+            if (dying)
             {
                 animator.SetTrigger("Pushing");
             }

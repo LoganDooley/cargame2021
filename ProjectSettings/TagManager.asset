@@ -7,6 +7,8 @@ TagManager:
   - obstacle
   - endpost
   - player
+  - car
+  - truck
   layers:
   - Default
   - TransparentFX
@@ -18,7 +20,7 @@ TagManager:
   - 
   - endpost
   - particles
-  - 
+  - PostProcessing
   - 
   - 
   - 

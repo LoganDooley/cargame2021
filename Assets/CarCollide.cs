@@ -20,7 +20,7 @@ public class CarCollide : MonoBehaviour
     {
         if (collision.tag == "player")
         {
-            GameObject child = collision.transform.Find("CarSound").gameObject;
+            GameObject child = collision.transform.Find("ConeSound").gameObject;
             child.GetComponent<AudioSource>().Play();
         }
     }
